@@ -7,19 +7,21 @@ let offset = 0;
 
 function convertPokemonToLi(pokemon) {
     return `
+    <div class="clique" onclick="showModal(${pokemon.number})">      
         <li class="pokemon ${pokemon.type}">
-            <span class="number">#${pokemon.number}</span>
-            <span class="name">${pokemon.name}</span>
+                <span class="number" id="id">#${pokemon.number}</span>
+                <span class="name">${pokemon.name}</span>
 
-            <div class="detail">
-                <ol class="types">
-                    ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
-                </ol>
+                <div class="detail">
+                    <ol class="types">
+                        ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
+                    </ol>
 
-                <img src="${pokemon.photo}"
+                    <img src="${pokemon.photo}"
                      alt="${pokemon.name}">
             </div>
         </li>
+    </div>    
     `
 }
 
@@ -45,3 +47,25 @@ loadMoreButton.addEventListener('click', () => {
         loadPokemonItens(offset, limit)
     }
 })
+
+// Obter a janela modal e o botão de fechar
+var modal = document.getElementById("myModal");
+var closeBtn = document.getElementsByClassName("close")[0];
+
+// Quando o usuário clicar no botão de fechar, fechar a janela modal
+closeBtn.onclick = function () {
+    modal.style.display = "none";
+}
+
+// Quando o usuário clicar em qualquer lugar fora da janela modal, fechar a janela modal
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Função para exibir a janela modal
+function showModal(id) {
+    console.log(id)
+    modal.style.display = "block";
+}
